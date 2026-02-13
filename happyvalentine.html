@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day! ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f191a1; /* Pink background from your image */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .main-title {
+            position: absolute;
+            top: 40px;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .card-wrapper {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .step-label {
+            color: #666;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* Container for the two-column look */
+        .content-section {
+            display: flex;
+            gap: 30px;
+            background: #fff0f3; /* Light pink inner box */
+            padding: 25px;
+            border-radius: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .image-box {
+            flex: 1;
+        }
+
+        .image-box img {
+            width: 100%;
+            border-radius: 15px;
+            display: block;
+        }
+
+        .text-box {
+            flex: 1.2;
+        }
+
+        .text-box h2 {
+            color: #b33a5d;
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        .text-box p {
+            color: #7d4b5a;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .btn-open {
+            background-color: #ff758f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        /* Hearts and Confetti */
+        .heart-bg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 4rem;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .content-section { flex-direction: column; }
+            .main-title { font-size: 1.8rem; top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-title">Happy Valentine's Day!</div>
+
+    <div class="card-wrapper">
+        <div id="step1">
+            <div class="step-label">step1</div>
+            <div class="content-section">
+                <div class="image-box">
+                    <img src="zandi.jpd" alt="Our Valentine's Day Photo">
+                    <p style="font-size: 0.8rem; color: #999; margin-top: 5px;">alt=Our Valentine's Day Photo</p>
+                </div>
+                <div class="text-box">
+                    <h2>Happy Valentine's Day!</h2>
+                    <p>You are the most amazing person I've ever met. I'm so lucky to have you in my life and I wanted to make something special just for you.</p>
+                    <button class="btn-open" onclick="revealNext()">Open Gift 🎁</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="step2" class="hidden">
+            <div class="step-label">step2</div>
+            <div class="content-section">
+                <div class="image-box">
+                    <img src="PASTE_IMAGE_LINK_HERE" alt="Our Happy Photo">
+                    <p style="font-size: 0.8rem; color: #999; margin-top: 5px;">alt=Our Happy Photo</p>
+                </div>
+                <div class="text-box">
+                    <h2>I Love You So Much!</h2>
+                    <p>The time we spend together is my favorite part of every day. Thank you for all the laughs, the love, and for being you!</p>
+                    <p style="font-weight: bold; color: #ff4d6d;">Happy Valentine's Day, Beautiful!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="heart-bg">💕❤️💗</div>
+
+    <script>
+        function revealNext() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            
+            // Add some simple confetti effect
+            for(let i=0; i<30; i++) {
+                createSparkle();
+            }
+        }
+
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = '50%';
+            sparkle.style.top = '50%';
+            sparkle.style.fontSize = '20px';
+            sparkle.style.transition = 'all 1s ease-out';
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                const x = (Math.random() - 0.5) * window.innerWidth;
+                const y = (Math.random() - 0.5) * window.innerHeight;
+                sparkle.style.transform = `translate(${x}px, ${y}px)`;
+                sparkle.style.opacity = 0;
+            }, 50);
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+    </script>
+</body>
+</html>
