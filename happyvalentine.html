@@ -2,113 +2,151 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Essential for iPhone scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Valentine's Day! ❤️</title>
     <style>
+        :root {
+            --primary-pink: #f191a1;
+            --dark-pink: #b33a5d;
+            --soft-pink: #fff0f3;
+            --accent-pink: #ff758f;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f191a1; /* Pink background from your image */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-pink);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
             margin: 0;
+            padding: 20px;
             overflow-x: hidden;
         }
 
         .main-title {
-            position: absolute;
-            top: 40px;
+            position: fixed;
+            top: 5vh;
+            width: 100%;
+            text-align: center;
             color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
         }
 
         .card-wrapper {
-            background: white;
-            width: 90%;
-            max-width: 700px;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
             position: relative;
-            margin-top: 60px;
+            z-index: 5;
+            animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .step-label {
-            color: #666;
-            text-align: left;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+            color: #999;
+            text-transform: lowercase;
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
         }
 
-        /* Container for the two-column look */
         .content-section {
+            background: var(--soft-pink);
+            padding: 20px;
+            border-radius: 25px;
             display: flex;
-            gap: 30px;
-            background: #fff0f3; /* Light pink inner box */
-            padding: 25px;
-            border-radius: 20px;
-            align-items: center;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .image-box {
-            flex: 1;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px solid rgba(179, 58, 93, 0.1);
         }
 
         .image-box img {
             width: 100%;
-            border-radius: 15px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             display: block;
         }
 
-        .text-box {
-            flex: 1.2;
-        }
-
         .text-box h2 {
-            color: #b33a5d;
-            margin-top: 0;
-            font-size: 1.6rem;
+            color: var(--dark-pink);
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            font-weight: 700;
         }
 
         .text-box p {
             color: #7d4b5a;
-            line-height: 1.6;
-            font-size: 0.95rem;
+            line-height: 1.5;
+            font-size: 1rem;
+            margin: 0;
         }
 
         .btn-open {
-            background-color: #ff758f;
+            background: var(--accent-pink);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
+            width: 100%;
+            padding: 16px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 8px;
-            margin-top: 15px;
+            gap: 10px;
+            margin-top: 20px;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 10px 20px rgba(255, 117, 143, 0.3);
         }
 
-        /* Hearts and Confetti */
+        .btn-open:active {
+            transform: scale(0.95);
+            background: #ff4d6d;
+        }
+
+        /* Bottom Floating Hearts */
         .heart-bg {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 4rem;
-            opacity: 0.3;
-            z-index: -1;
+            bottom: -10px;
+            right: 10px;
+            font-size: 5rem;
+            opacity: 0.2;
+            pointer-events: none;
+            filter: blur(2px);
         }
 
         .hidden { display: none; }
 
-        @media (max-width: 600px) {
-            .content-section { flex-direction: column; }
-            .main-title { font-size: 1.8rem; top: 20px; }
+        /* Celebration Animation */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes sparkleAnim {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
     </style>
 </head>
@@ -117,32 +155,33 @@
     <div class="main-title">Happy Valentine's Day!</div>
 
     <div class="card-wrapper">
+        <!-- STEP 1 -->
         <div id="step1">
-            <div class="step-label">step1</div>
+            <span class="step-label">step1</span>
             <div class="content-section">
                 <div class="image-box">
-                    <img src="zandi.jpd" alt="Our Valentine's Day Photo">
-                    <p style="font-size: 0.8rem; color: #999; margin-top: 5px;">alt=Our Valentine's Day Photo</p>
+                    <!-- Replace the URL below with your actual photo link -->
+                    <img src="PASTE_IMAGE_LINK_HERE" alt="Our Valentine's Day Photo">
                 </div>
                 <div class="text-box">
-                    <h2>Happy Valentine's Day!</h2>
-                    <p>You are the most amazing person I've ever met. I'm so lucky to have you in my life and I wanted to make something special just for you.</p>
-                    <button class="btn-open" onclick="revealNext()">Open Gift 🎁</button>
+                    <h2>For My Favorite Person</h2>
+                    <p>I made this little digital gift just for you to show you how much you mean to me. Tap below to see your surprise!</p>
                 </div>
             </div>
+            <button class="btn-open" onclick="revealNext()">Open Gift 🎁</button>
         </div>
 
+        <!-- STEP 2 (Hidden) -->
         <div id="step2" class="hidden">
-            <div class="step-label">step2</div>
+            <span class="step-label">step2</span>
             <div class="content-section">
                 <div class="image-box">
                     <img src="PASTE_IMAGE_LINK_HERE" alt="Our Happy Photo">
-                    <p style="font-size: 0.8rem; color: #999; margin-top: 5px;">alt=Our Happy Photo</p>
                 </div>
                 <div class="text-box">
-                    <h2>I Love You So Much!</h2>
-                    <p>The time we spend together is my favorite part of every day. Thank you for all the laughs, the love, and for being you!</p>
-                    <p style="font-weight: bold; color: #ff4d6d;">Happy Valentine's Day, Beautiful!</p>
+                    <h2>I Love You! ❤️</h2>
+                    <p>You make every single day feel special. Thank you for being you and for all the amazing memories we've shared so far.</p>
+                    <p style="margin-top: 15px; font-weight: bold; color: var(--accent-pink);">Happy Valentine's Day, Beautiful!</p>
                 </div>
             </div>
         </div>
@@ -152,32 +191,46 @@
 
     <script>
         function revealNext() {
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.remove('hidden');
-            
-            // Add some simple confetti effect
-            for(let i=0; i<30; i++) {
-                createSparkle();
+            // Haptic feedback (if supported)
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(50);
             }
+
+            document.getElementById('step1').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+                document.getElementById('step2').style.animation = 'slideUp 0.6s ease-out';
+                
+                // Create burst effect
+                for(let i = 0; i < 40; i++) {
+                    createSparkle();
+                }
+            }, 300);
         }
 
         function createSparkle() {
             const sparkle = document.createElement('div');
-            sparkle.innerHTML = '✨';
-            sparkle.style.position = 'fixed';
-            sparkle.style.left = '50%';
-            sparkle.style.top = '50%';
-            sparkle.style.fontSize = '20px';
-            sparkle.style.transition = 'all 1s ease-out';
+            const icons = ['✨', '💖', '🌸', '❤️', '🎈'];
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            
+            const x = window.innerWidth / 2;
+            const y = window.innerHeight / 2;
+            
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            const tx = (Math.random() - 0.5) * window.innerWidth * 0.8;
+            const ty = (Math.random() - 0.5) * window.innerHeight * 0.8;
+            
+            sparkle.style.setProperty('--tx', `${tx}px`);
+            sparkle.style.setProperty('--ty', `${ty}px`);
+            sparkle.style.animation = `sparkleAnim ${Math.random() * 1 + 1}s ease-out forwards`;
+            
             document.body.appendChild(sparkle);
-
-            setTimeout(() => {
-                const x = (Math.random() - 0.5) * window.innerWidth;
-                const y = (Math.random() - 0.5) * window.innerHeight;
-                sparkle.style.transform = `translate(${x}px, ${y}px)`;
-                sparkle.style.opacity = 0;
-            }, 50);
-            setTimeout(() => sparkle.remove(), 1000);
+            setTimeout(() => sparkle.remove(), 2000);
         }
     </script>
 </body>
