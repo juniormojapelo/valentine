@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Essential for iPhone scaling -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Optimized for iPhone 15 Pro Max and similar large displays -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Happy Valentine's Day! ❤️</title>
     <style>
         :root {
@@ -11,6 +11,9 @@
             --dark-pink: #b33a5d;
             --soft-pink: #fff0f3;
             --accent-pink: #ff758f;
+            /* Safe area for Dynamic Island and bottom indicator */
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
         }
 
         * {
@@ -24,80 +27,97 @@
             align-items: center;
             min-height: 100vh;
             background-color: var(--primary-pink);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
             margin: 0;
             padding: 20px;
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
             overflow-x: hidden;
         }
 
         .main-title {
             position: fixed;
-            top: 5vh;
-            width: 100%;
+            top: calc(var(--safe-top) + 20px);
+            left: 0;
+            right: 0;
             text-align: center;
             color: white;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.15);
             z-index: 10;
         }
 
         .card-wrapper {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             width: 100%;
-            max-width: 400px;
-            padding: 25px;
-            border-radius: 35px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            max-width: 430px; /* iPhone 15 Pro Max width logic */
+            padding: 28px;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2);
             position: relative;
             z-index: 5;
-            animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideUp 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 40px; /* Offset for title */
         }
 
         @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
+            from { transform: translateY(60px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
         .step-label {
-            color: #999;
+            color: #b0b0b0;
             text-transform: lowercase;
-            font-weight: 500;
-            margin-bottom: 15px;
+            font-weight: 600;
+            margin-bottom: 18px;
             display: block;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         .content-section {
             background: var(--soft-pink);
-            padding: 20px;
-            border-radius: 25px;
+            padding: 24px;
+            border-radius: 30px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            border: 1px solid rgba(179, 58, 93, 0.1);
+            gap: 24px;
+            border: 1px solid rgba(179, 58, 93, 0.08);
+        }
+
+        .image-box {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 24px;
+            aspect-ratio: 4 / 5; /* More vertical for mobile photos */
         }
 
         .image-box img {
             width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            height: 100%;
+            object-fit: cover;
             display: block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         .text-box h2 {
             color: var(--dark-pink);
-            margin: 0 0 10px 0;
-            font-size: 1.4rem;
-            font-weight: 700;
+            margin: 0 0 12px 0;
+            font-size: 1.6rem;
+            font-weight: 800;
+            line-height: 1.2;
         }
 
         .text-box p {
-            color: #7d4b5a;
-            line-height: 1.5;
-            font-size: 1rem;
+            color: #6a3e4c;
+            line-height: 1.6;
+            font-size: 1.05rem;
             margin: 0;
+            font-weight: 400;
         }
 
         .btn-open {
@@ -105,48 +125,59 @@
             color: white;
             border: none;
             width: 100%;
-            padding: 16px;
-            border-radius: 20px;
-            font-size: 1.1rem;
+            padding: 20px;
+            border-radius: 22px;
+            font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-            transition: transform 0.2s, background 0.2s;
-            box-shadow: 0 10px 20px rgba(255, 117, 143, 0.3);
+            gap: 12px;
+            margin-top: 24px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 12px 24px rgba(255, 117, 143, 0.35);
         }
 
         .btn-open:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
             background: #ff4d6d;
+            box-shadow: 0 5px 10px rgba(255, 117, 143, 0.2);
         }
 
-        /* Bottom Floating Hearts */
         .heart-bg {
             position: fixed;
-            bottom: -10px;
-            right: 10px;
-            font-size: 5rem;
-            opacity: 0.2;
+            bottom: calc(var(--safe-bottom) + 10px);
+            right: 15px;
+            font-size: 6rem;
+            opacity: 0.15;
             pointer-events: none;
-            filter: blur(2px);
+            filter: blur(1px);
+            z-index: 1;
         }
 
         .hidden { display: none; }
 
-        /* Celebration Animation */
         .sparkle {
             position: fixed;
             pointer-events: none;
             z-index: 100;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
         }
 
         @keyframes sparkleAnim {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        /* Large Screen iPhone Optimization */
+        @media (min-height: 800px) {
+            .card-wrapper {
+                padding: 32px;
+            }
+            .text-box h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -157,10 +188,9 @@
     <div class="card-wrapper">
         <!-- STEP 1 -->
         <div id="step1">
-            <span class="step-label"></span>
+            <span class="step-label">step 1 / 2</span>
             <div class="content-section">
                 <div class="image-box">
-                    <!-- Replace with your chosen cover photo or keep the same -->
                     <img src="zandi.jpg" alt="Our Valentine's Day Photo">
                 </div>
                 <div class="text-box">
@@ -171,17 +201,20 @@
             <button class="btn-open" onclick="revealNext()">Open Gift 🎁</button>
         </div>
 
-        <!-- STEP 2 (Hidden) -->
-        <div id="" class="hidden">
-            <span class="step-label">step2</span>
+        <!-- STEP 2 (Surprise) -->
+        <div id="step2" class="hidden">
+            <span class="step-label">step 2 / 2</span>
             <div class="content-section">
                 <div class="image-box">
                     <img src="zandi.jpg" alt="Our Happy Photo">
                 </div>
                 <div class="text-box">
                     <h2>I Love You! ❤️</h2>
-                    <p>you make every single day feel special. thank you for being you and for all the amazing memories we've shared together, i cherish each and every moment we’ve shared together. can we carry on creating more memories and loving each other to the fullest. having you in my life is one of the best things in my life rn. i can proudly say my valentines is everyday because of you, i appreciate every single particle of and all the love you have shown from the beginning to date. i can’t even articulate into words how much i love you , all i can say is that I LOVE YOU ZANDI❤️.</p>
-                    <p style="margin-top: 15px; font-weight: bold; color: var(--accent-pink);">Happy Valentine's Day, Baby!</p>
+                    <p>You make every single day feel special. Thank you for being you and for all the amazing memories we've shared together. I cherish each and every moment we’ve shared together.</p>
+                    <p style="margin-top: 10px;">Can we carry on creating more memories and loving each other to the fullest? Having you in my life is one of the best things in my life right now.</p>
+                    <p style="margin-top: 10px;">I can proudly say my Valentine's is every day because of you. I appreciate every single particle of you and all the love you have shown from the beginning to date.</p>
+                    <p style="margin-top: 10px; font-style: italic;">I can’t even articulate into words how much I love you, all I can say is that I LOVE YOU ZANDI❤️.</p>
+                    <p style="margin-top: 20px; font-size: 1.3rem; font-weight: 800; color: var(--accent-pink); text-align: center;">Happy Valentine's Day, Baby!</p>
                 </div>
             </div>
         </div>
@@ -191,27 +224,39 @@
 
     <script>
         function revealNext() {
-            // Haptic feedback (if supported)
             if (window.navigator.vibrate) {
-                window.navigator.vibrate(50);
+                window.navigator.vibrate([60, 40, 60]);
             }
 
-            document.getElementById('step1').style.opacity = '0';
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+
+            step1.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            step1.style.opacity = '0';
+            step1.style.transform = 'scale(0.95)';
+
             setTimeout(() => {
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('step2').classList.remove('hidden');
-                document.getElementById('step2').style.animation = 'slideUp 0.6s ease-out';
+                step1.classList.add('hidden');
+                step2.classList.remove('hidden');
+                step2.style.opacity = '0';
+                step2.style.transform = 'translateY(20px)';
                 
-                // Create burst effect
-                for(let i = 0; i < 40; i++) {
-                    createSparkle();
+                requestAnimationFrame(() => {
+                    step2.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    step2.style.opacity = '1';
+                    step2.style.transform = 'translateY(0)';
+                });
+                
+                // Bigger celebration for Pro Max screen
+                for(let i = 0; i < 60; i++) {
+                    setTimeout(createSparkle, i * 20);
                 }
-            }, 300);
+            }, 400);
         }
 
         function createSparkle() {
             const sparkle = document.createElement('div');
-            const icons = ['✨', '💖', '🌸', '❤️', '🎈'];
+            const icons = ['✨', '💖', '🌸', '❤️', '🎈', '💝', '🌹'];
             sparkle.className = 'sparkle';
             sparkle.innerHTML = icons[Math.floor(Math.random() * icons.length)];
             
@@ -220,17 +265,17 @@
             
             sparkle.style.left = x + 'px';
             sparkle.style.top = y + 'px';
-            sparkle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            sparkle.style.fontSize = (Math.random() * 25 + 15) + 'px';
             
-            const tx = (Math.random() - 0.5) * window.innerWidth * 0.8;
-            const ty = (Math.random() - 0.5) * window.innerHeight * 0.8;
+            const tx = (Math.random() - 0.5) * window.innerWidth * 1.2;
+            const ty = (Math.random() - 0.5) * window.innerHeight * 1.2;
             
             sparkle.style.setProperty('--tx', `${tx}px`);
             sparkle.style.setProperty('--ty', `${ty}px`);
-            sparkle.style.animation = `sparkleAnim ${Math.random() * 1 + 1}s ease-out forwards`;
+            sparkle.style.animation = `sparkleAnim ${Math.random() * 1.5 + 1}s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`;
             
             document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 2000);
+            setTimeout(() => sparkle.remove(), 2500);
         }
     </script>
 </body>
